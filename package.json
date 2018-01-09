@@ -1,0 +1,23 @@
+{
+  "name": "music",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "api": "PORT=3000 nodemon -w api node_modules/.bin/bak start api",
+    "api:start": "bak start api",
+    "app": "PORT=3001 nuxt dev -c app/nuxt.config.js",
+    "app:build": "nuxt build -c app/nuxt.config.js",
+    "app:start": "nuxt start -c app/nuxt.config.js"
+  },
+  "dependencies": {
+    "@bakjs/auth": "^3.0.3",
+    "@bakjs/mongo": "^2.0.4",
+    "@nuxtjs/axios": "^4.5.2",
+    "@nuxtjs/proxy": "^1.1.3",
+    "bak": "^3.0.5",
+    "nodemon": "^1.14.10",
+    "nuxt": "^1.0.0",
+    "onsenui": "^2.8.3",
+    "vue-onsenui": "^2.4.3"
+  }
+}
