@@ -10,7 +10,7 @@ module.exports = {
     '@bakjs/mongo',
   ],
 
-  // Mongo
+  // Mongo, lkm
   mongo: {
     connections: {
       default: { uri: 'mongodb://localhost/test' }

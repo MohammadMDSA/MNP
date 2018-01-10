@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "api": "PORT=3000 nodemon -w api node_modules/.bin/bak start api",
+    "api": "cross-env PORT=3000 SUPPRESS_NO_CONFIG_WARNING=1 nodemon node_modules/bak/bin/bak start api",
     "api:start": "bak start api",
-    "app": "PORT=3001 nuxt dev -c app/nuxt.config.js",
+    "app": "cross-env PORT=3001 nuxt dev -c app/nuxt.config.js",
     "app:build": "nuxt build -c app/nuxt.config.js",
     "app:start": "nuxt start -c app/nuxt.config.js"
   },
@@ -15,6 +15,8 @@
     "@nuxtjs/axios": "^4.5.2",
     "@nuxtjs/proxy": "^1.1.3",
     "bak": "^3.0.5",
+    "cross-env": "^5.1.3",
+    "crossenv": "^0.0.2-security",
     "nodemon": "^1.14.10",
     "nuxt": "^1.0.0",
     "onsenui": "^2.8.3",

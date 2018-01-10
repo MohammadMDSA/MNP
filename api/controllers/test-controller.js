@@ -4,21 +4,22 @@ const Boom = require('boom')
 const { Music } = require('../models')
 
 class PublicController extends Controller {
-  init () {
-    this.get('/music', this.music)
-    this.post('/music', this.newMusic)
-  }
+	init() {
+		this.get('/music', this.music)
+		this.post('/music', this.newMusic)
+	}
 
-  async music () {
-      const all = await Music.find({})
-      return all
-  }
+	async music() {
+		const all = await Music.find({})
+		return all
+	}
 
-  async newMusic () {
-    const p = new Music()
-    await p.save()
-    return p
-  }
+	async newMusic() {
+		// throw Boom.notImplemented("SS")
+		const p = new Music()
+		await p.save()
+		return p
+	}
 
 }
 
