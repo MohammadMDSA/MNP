@@ -1,7 +1,6 @@
 <template>
   <v-ons-page class="mainPadding">
-        <!-- {{ JSON.stringify(items, null, 2) }} -->
-
+    <pullhook :pullhook-function="refresh"></pullhook>
     <v-ons-list>
       <v-ons-list-header>Musics</v-ons-list-header>
       <v-ons-list-item v-for="item in items">
@@ -13,6 +12,7 @@
       <v-ons-list-item>
         <v-ons-input placeholder="New music name" @keyup.enter="newMusic" v-model="inputMusicName"/>
         <v-ons-button @click="newMusic" modifier="outline">Add music</v-ons-button>
+        {{inputMusicName}}
       </v-ons-list-item>
     </v-ons-list>
 
@@ -24,25 +24,35 @@
 </template>
 
 <script>
+
+import pullhook from '../components/pullHook.vue'
+
 export default {
   data() {
     return {
       inputMusicName: '',
-      items: []
+      items: [],
+      pullHookState: 'initial'
     };
   },
   async mounted() {
-    this.refresh();
+    // this.refresh();
   },
   methods: {
-    async refresh() {
+    async refresh(done) {
       this.items = await this.$axios.$get("music");
+      if(done)
+        done()
     },
     async newMusic() {
-      await this.$axios.$post("music", { name: this.inputMusicName })
-      inputMusicName = ''
+      if(this.inputMusicName && this.inputMusicName !== '')
+        await this.$axios.$post("music", { name: this.inputMusicName })
+      this.inputMusicName = ''
       this.refresh();
     }
+  },
+  components: {
+    pullhook
   }
 };
 </script>
