@@ -14,9 +14,10 @@ class PublicController extends Controller {
 		return all
 	}
 
-	async newMusic() {
+	async newMusic(req, res) {
 		// throw Boom.notImplemented("SS")
-		const p = new Music()
+		console.log('i')
+		const p = new Music({name: req.payload.name})
 		await p.save()
 		return p
 	}
