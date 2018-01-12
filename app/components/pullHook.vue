@@ -7,7 +7,6 @@
 	>
 		<v-ons-progress-circular v-show="pullHookState !== 'action'" value="0" :secondary-value="pullValue"></v-ons-progress-circular>
 		<v-ons-progress-circular v-show="pullHookState === 'action'" indeterminate></v-ons-progress-circular>
-		<span>{{pullValue}}</span>
 	</v-ons-pull-hook>
 </template>
 

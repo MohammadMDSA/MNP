@@ -26,6 +26,7 @@
 <script>
 
 import pullhook from '../components/pullHook.vue'
+// import ons from 'vue-onsenui'
 
 export default {
   data() {
@@ -45,8 +46,10 @@ export default {
         done()
     },
     async newMusic() {
-      if(this.inputMusicName && this.inputMusicName !== '')
+      if(this.inputMusicName && this.inputMusicName !== '') {
         await this.$axios.$post("music", { name: this.inputMusicName })
+        this.$ons.notification.toast('Your new music is added!', {timeout: 2000, animation: 'fall'})
+      }
       this.inputMusicName = ''
       this.refresh();
     }
