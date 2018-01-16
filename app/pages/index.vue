@@ -4,7 +4,11 @@
       <div class="center">{{ title }}</div>
     </v-ons-toolbar>
 
-	<v-ons-tabbar swipable position="auto" :tabs="tabs" :visible="true" :index.sync="activeIndex">
+	<!-- <v-ons-navigator>
+		
+	</v-ons-navigator> -->
+
+	<v-ons-tabbar position="auto" :tabs="tabs" :visible="true" :index.sync="activeIndex" swipeable>
 
 	</v-ons-tabbar>
   </v-ons-page>
@@ -22,7 +26,7 @@ export default {
 					icon: this.getIcon('ion-music-note'),
 					label: 'Musics',
 					page: musicPage,
-					key: 'musicPage'
+					key: 'musicPage',
 				},
 				{
 					icon: this.getIcon('ion-settings'),
@@ -31,6 +35,7 @@ export default {
 					key: 'settingPage'
 				}
 			],
+			pageStack: [musicPage],
 			activeIndex: 0
 		};
 	},

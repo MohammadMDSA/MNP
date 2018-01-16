@@ -9,6 +9,7 @@ module.exports = {
   buildDir: resolve(__dirname, '.nuxt'),
 
   modules: [
+    // '@nuxtjs/auth',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
   ],

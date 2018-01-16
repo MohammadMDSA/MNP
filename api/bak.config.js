@@ -8,6 +8,7 @@ module.exports = {
   // Plugins
   registrations: [
     '@bakjs/mongo',
+    // '@bakjs/auth'
   ],
 
   // Mongo, lkm
@@ -15,5 +16,9 @@ module.exports = {
     connections: {
       default: { uri: 'mongodb://localhost/test' }
     }
-  }
+  },
+
+    // auth: {
+    //   secret: "ddfdfkdofdkfo343"
+    // }
 }

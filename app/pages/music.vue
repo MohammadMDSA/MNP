@@ -3,7 +3,7 @@
     <pullhook :pullhook-function="refresh"></pullhook>
     <v-ons-list>
       <v-ons-list-header>Musics</v-ons-list-header>
-      <v-ons-list-item v-for="item in items">
+      <v-ons-list-item v-for="item in items" :key="item._id">
         <div>
           <span>{{item.name}}</span>
         </div>
