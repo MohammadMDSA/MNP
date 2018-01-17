@@ -12,13 +12,15 @@
     <pullhook :pullhook-function="refresh"></pullhook>
     <v-ons-list>
       <v-ons-list-header>Musics</v-ons-list-header>
-      <v-ons-list-item v-for="item in items" :key="item._id">
+      <v-ons-list-item v-for="(item, index) in items" :key="item._id">
         <div class="left">
           <span>{{item.name}}</span>
         </div>
         <div class="right">
           <transition name="slide-fade">
-            <v-ons-icon v-if="isEditing" class="removeIcon" icon="ion-close-circled"></v-ons-icon>
+            <v-ons-button v-if="isEditing" class="remove-button" modifier="quiet" @click="removeMusic(item, index)">
+              <v-ons-icon class="removeIcon" icon="ion-close-circled"></v-ons-icon>
+            </v-ons-button>
           </transition> 
         </div>
       </v-ons-list-item>
@@ -58,14 +60,26 @@ export default {
     },
     async newMusic() {
       if (this.inputMusicName && this.inputMusicName !== "") {
-        await this.$axios.$post("music", { name: this.inputMusicName });
+        let lresult = await this.$axios.$post("music", {
+          action: "add",
+          name: this.inputMusicName
+        });
+        this.items.push(lresult);
         this.$ons.notification.toast("Your new music is added!", {
           timeout: 2000,
           animation: "fall"
         });
       }
       this.inputMusicName = "";
-      this.refresh();
+    },
+    async removeMusic(music, index) {
+      console.log('sdfsdfsdfsd');
+      let lresult = await this.$axios.$post("music", {
+        action: "remove",
+        name: music.name
+      });
+      if (lresult.ok === 1)
+        this.items.splice(index, 1);
     }
   },
   components: {
@@ -95,8 +109,20 @@ export default {
 .slide-fade-enter,
 .slide-fade-leave-to {
   opacity: 0;
-  transform: translateX(10px)
+  transform: translateX(10px);
 }
 
+.remove-button {
+  padding: 0px 0px;
+  display: flex;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  height: auto;
+}
 
+.list-item {
+  /* background: red; */
+  transition: all 4s ease-out;
+}
 </style>

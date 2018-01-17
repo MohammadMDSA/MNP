@@ -6,7 +6,7 @@ const { Music } = require('../models')
 class PublicController extends Controller {
 	init() {
 		this.get('/music', this.music)
-		this.post('/music', this.newMusic)
+		this.post('/music', this.postMusic)
 	}
 
 	async music() {
@@ -14,12 +14,17 @@ class PublicController extends Controller {
 		return all
 	}
 
-	async newMusic(req, res) {
+	async postMusic(req, res) {
 		// throw Boom.notImplemented("SS")
-		console.log('i')
-		const p = new Music({name: req.payload.name})
-		await p.save()
-		return p
+		if (req.payload.action === 'add') {
+			const p = new Music({ name: req.payload.name })
+			await p.save()
+			return p
+		}
+		else if (req.payload.action === 'remove') {
+			const re = await Music.remove({ name: req.payload.name })
+			return re;
+		}
 	}
 
 }
