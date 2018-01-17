@@ -10,26 +10,38 @@
       </div>
 		</v-ons-toolbar>
     <pullhook :pullhook-function="refresh"></pullhook>
-    <v-ons-list>
-      <v-ons-list-header>Musics</v-ons-list-header>
-      <v-ons-list-item v-for="(item, index) in items" :key="item._id">
-        <div class="left">
-          <span>{{item.name}}</span>
-        </div>
-        <div class="right">
-          <transition name="slide-fade">
-            <v-ons-button v-if="isEditing" class="remove-button" modifier="quiet" @click="removeMusic(item, index)">
-              <v-ons-icon class="removeIcon" icon="ion-close-circled"></v-ons-icon>
-            </v-ons-button>
-          </transition> 
-        </div>
-      </v-ons-list-item>
-      <v-ons-list-header>Add new</v-ons-list-header>
-      <v-ons-list-item>
-        <v-ons-input placeholder="New music name" @keyup.enter="newMusic" v-model="inputMusicName"/>
-        <v-ons-button @click="newMusic" modifier="outline">Add music</v-ons-button>
-      </v-ons-list-item>
-    </v-ons-list>
+
+    <transition name="music-list">
+
+      <v-ons-list>
+
+        <v-ons-list-header>Musics</v-ons-list-header>
+        <transition-group name="list-change">
+
+
+          <v-ons-list-item v-for="(item, index) in items" :key="item._id" class="list-item--longdivider__center">
+            <div class="left">
+              <span>{{item.name}}</span>
+            </div>
+            <div class="right">
+              <transition name="slide-fade">
+                <v-ons-button v-if="isEditing" class="remove-button" modifier="quiet" @click="removeMusic(item, index)">
+                  <v-ons-icon class="removeIcon" icon="ion-close-circled"></v-ons-icon>
+                </v-ons-button>
+              </transition> 
+            </div>
+          </v-ons-list-item>
+
+          <v-ons-list-header key="addNewHeader">Add new</v-ons-list-header>
+          <v-ons-list-item key="AddNewItem">
+            <v-ons-input placeholder="New music name" @keyup.enter="newMusic" v-model="inputMusicName"/>
+            <v-ons-button @click="newMusic" modifier="outline">Add music</v-ons-button>
+          </v-ons-list-item>
+
+        </transition-group>
+      </v-ons-list>
+
+    </transition>
 
   </v-ons-page>
 
@@ -73,13 +85,12 @@ export default {
       this.inputMusicName = "";
     },
     async removeMusic(music, index) {
-      console.log('sdfsdfsdfsd');
+      console.log("sdfsdfsdfsd");
       let lresult = await this.$axios.$post("music", {
         action: "remove",
         name: music.name
       });
-      if (lresult.ok === 1)
-        this.items.splice(index, 1);
+      if (lresult.ok === 1) this.items.splice(index, 1);
     }
   },
   components: {
@@ -95,7 +106,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.1s ease;
+  transition: all 0.5s ease;
 }
 .fade-enter,
 .fade-leave-to {
@@ -121,8 +132,54 @@ export default {
   height: auto;
 }
 
+.list {
+  transition: all 3s ease-out;
+
+}
+/* .list:hover {
+  background: green;
+  width: 200px;
+
+} */
+
+.music-list {
+  transition: all 1s;
+  display: inline-block;
+  position: absolute;
+}
+
+.music-list-enter,
+.music-list-leave-to {
+  transform: translateY();
+}
+
+.music-list-enter-active,
+.music-list-leave-active {
+  position: absolute;
+}
+
+.list-header,
 .list-item {
-  /* background: red; */
-  transition: all 4s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.list-change-item {
+  transition: all 0.5s;
+  display: inline-block;
+}
+.list-change-enter,
+.list-change-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-change-enter-active {
+  position: relative;
+}
+.list-change-leave-active {
+  position: absolute;
+}
+.list-change-enter-to,
+.list-change-leave {
+  opacity: 1;
 }
 </style>
