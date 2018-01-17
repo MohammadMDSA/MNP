@@ -15,7 +15,7 @@ module.exports = {
   ],
 
   plugins: [
-    '~/plugins/onsen'
+    '~/plugins/onsen',
   ],
 
   manifest: {
